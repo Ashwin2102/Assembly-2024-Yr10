@@ -164,22 +164,58 @@ function bankMoney() {
   }
   skip();
 }
+function showRoundTitle() {
+  const roundTitlePanel = document.getElementById('round-title-panel');
+  const roundTitle = document.getElementById('round-title');
 
-// Handle next round functionality
+  // Set the title for the current round
+  roundTitle.innerText = `Round ${currentRound + 1} - ${getRoundName(currentRound)}`;
+
+  // Show the panel
+  roundTitlePanel.style.visibility = 'visible';
+
+  // Hide the panel after 2 seconds
+  setTimeout(() => {
+    roundTitlePanel.style.visibility = 'hidden';
+    showQuestion(); // Show the first question of the new round
+  }, 2000);
+}
+
+// Function to return round names based on the current round index
+function getRoundName(roundIndex) {
+  const roundNames = [
+    'Bank Loans', 
+    'Credit Cards', 
+    'Mortgages', 
+    'Short Term Loans', 
+    'Car Loans'
+  ];
+
+  // Return the name of the current round, or default to 'Round' if not defined
+  return roundNames[roundIndex] || 'Round';
+}
+
 function nextRound() {
   currentRound++;
   if (currentRound < rounds.length) {
     currentQuestionIndex = 0;
-    skip()
+    skip(); // Reset for the next round
     resetMoneyChain();
+
+    // Update total earnings in the live wallet display
     x += bankedTotal;
-    liveWalletElement.innerText = `Total Earned: $${x.toLocaleString()}`; // Update live wallet display
-    bankedTotal = 0;
+    liveWalletElement.innerText = `Total Earned: $${x.toLocaleString()}`;
+    bankedTotal = 0; // Reset banked amount for the new round
     bankedAmountElement.innerText = `Bank: $${bankedTotal.toLocaleString()}`;
-    showQuestion();
+
     nextRoundBtn.style.visibility = 'hidden';
+
+    // Show the round title panel before starting the next round
+    showRoundTitle();
+
   } else {
-    resetGame(); // Reset or end the game after all rounds
+    // End the game after all rounds
+    resetGame(); 
   }
 }
 
