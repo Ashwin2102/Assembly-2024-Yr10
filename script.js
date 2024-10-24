@@ -1,6 +1,7 @@
 const rounds = [
   {
     questions: [
+      "Round 1 - Bank Loans",
       "What is a loan?",
       "What is a bank loan?",
       "What is a loan term?",
@@ -14,6 +15,7 @@ const rounds = [
   },
   {
     questions: [
+      "Round 2 - Credit and Debit Cards",
       "What is the key difference between a credit and a debit card?",
       "What is a credit score?",
       "Can you build a credit score on a debit card?",
@@ -26,6 +28,7 @@ const rounds = [
   },
   {
     questions: [
+      "Round 3 - Mortgages",
       "What is a mortgage?",
       "What does it mean to amortise a loan?",
       "What do you call the amount you pay upfront upon buying property?",
@@ -39,6 +42,7 @@ const rounds = [
   },
   {
     questions: [
+      "Round 4 - Short Tern Loans",
       "What is a short term loan?",
       "What is an example of a short term loan?",
       "What is an overdraft?",
@@ -52,6 +56,7 @@ const rounds = [
     moneyChain: ["$120,000","$60,000", "$30,000", "$15,000", "$8,000", "$4,000", "$2,000", "$1,000","$0"]
   },{
     questions: [
+      "Round 5 - Short Term Loans",
       "What is a car loan?",
       "What is a typical amount of time for a car loan will be paid off?",
       "What is the length of time allowed to pay back a car loan proportional to the amount of interest?",
@@ -82,7 +87,7 @@ const feedbackElement = document.getElementById('feedback');
 const moneyListElement = document.getElementById('money-list');
 const bankedAmountElement = document.getElementById('banked-amount');
 const nextRoundBtn = document.getElementById('next-round-btn');
-const liveWalletElement = document.getElementById('live-wallet'); // Display for `x`
+const liveWalletElement = document.getElementById('live-wallet'); // Display for x
 const soundEffectC = document.getElementById("soundEffectC");
 const soundEffectI = document.getElementById("soundEffectI");
 // Display the first question of the current round
@@ -164,58 +169,22 @@ function bankMoney() {
   }
   skip();
 }
-function showRoundTitle() {
-  const roundTitlePanel = document.getElementById('round-title-panel');
-  const roundTitle = document.getElementById('round-title');
 
-  // Set the title for the current round
-  roundTitle.innerText = `Round ${currentRound + 1} - ${getRoundName(currentRound)}`;
-
-  // Show the panel
-  roundTitlePanel.style.visibility = 'visible';
-
-  // Hide the panel after 2 seconds
-  setTimeout(() => {
-    roundTitlePanel.style.visibility = 'hidden';
-    showQuestion(); // Show the first question of the new round
-  }, 2000);
-}
-
-// Function to return round names based on the current round index
-function getRoundName(roundIndex) {
-  const roundNames = [
-    'Bank Loans', 
-    'Credit Cards', 
-    'Mortgages', 
-    'Short Term Loans', 
-    'Car Loans'
-  ];
-
-  // Return the name of the current round, or default to 'Round' if not defined
-  return roundNames[roundIndex] || 'Round';
-}
-
+// Handle next round functionality
 function nextRound() {
   currentRound++;
   if (currentRound < rounds.length) {
     currentQuestionIndex = 0;
-    skip(); // Reset for the next round
+
     resetMoneyChain();
-
-    // Update total earnings in the live wallet display
     x += bankedTotal;
-    liveWalletElement.innerText = `Total Earned: $${x.toLocaleString()}`;
-    bankedTotal = 0; // Reset banked amount for the new round
+    liveWalletElement.innerText = `Total Earned: $${x.toLocaleString()}`; // Update live wallet display
+    bankedTotal = 0;
     bankedAmountElement.innerText = `Bank: $${bankedTotal.toLocaleString()}`;
-
+    showQuestion();
     nextRoundBtn.style.visibility = 'hidden';
-
-    // Show the round title panel before starting the next round
-    showRoundTitle();
-
   } else {
-    // End the game after all rounds
-    resetGame(); 
+    resetGame(); // Reset or end the game after all rounds
   }
 }
 
@@ -224,9 +193,10 @@ function skip() {
   roundEarnings = moneyValue;
 
   // Move to the next question
-
+  currentQuestionIndex++;
   // Decrease money index and update the money chain only after answering
   moneyIndex--; 
+  showQuestion()
 }
 
 // Initialize the quiz
