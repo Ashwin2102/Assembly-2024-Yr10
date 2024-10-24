@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Weakest Link Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="quiz-panel">
+          <span id="live-wallet">Total Earned: $0</span>
+            <h1 id="question">Question will appear here</h1>
+            <div id="feedback" class="feedback" style="visibility: hidden;">Correct/Incorrect</div>
+            <div class="controls">
+                <!-- Removed Bank button -->
+                <button id="next-round-btn" style="visibility: hidden;">Next Round</button>
+              <audio id="soundEffectC" src="correct.mp3"></audio>
+              <audio id="soundEffectI" src="wrong.mp3"></audio>
+
+            </div>
+        </div>
+        <div class="money-panel">
+            <h2>Money Chain</h2>
+            <ul id="money-list" class="money-list">
+                <li>$200,000</li>
+                <li>$100,000</li>
+                <li>$50,000</li>
+                <li>$25,000</li>
+                <li>$10,000</li>
+                <li>$5,000</li>
+                <li>$2,500</li>
+                <li>$1,000</li>
+                <li>$0</li>
+            </ul>
+            <span id="banked-amount" class="money-text">Bank: $0</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
